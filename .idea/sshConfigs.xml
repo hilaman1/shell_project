@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="nova.cs.tau.ac.il" id="6fb4c84d-6257-421d-a63c-8baf20e6d22a" port="22" nameFormat="DESCRIPTIVE" username="hilaman1" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>

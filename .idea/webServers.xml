@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3a0c3d81-ab10-4a20-8d6c-0cc20cbd73c2" name="nova">
+        <fileTransfer rootFolder="/specific/a/home/cc/students/cs/hilaman1" accessType="SFTP" host="nova.cs.tau.ac.il" port="22" sshConfigId="6fb4c84d-6257-421d-a63c-8baf20e6d22a" sshConfig="hilaman1@nova.cs.tau.ac.il:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
