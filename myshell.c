@@ -128,7 +128,7 @@ int piping(int index, char **arglist) {
     pid_t child = -1;
     child = waitpid(cpid, &exit_code, 0);
     if ((-1 == child) && (errno != ECHILD)  && (errno != EINTR )) {
-        fprintf(stderr, "wait failed on error: %s\n", strerror(errno));
+        fprintf(stderr, "wait failed error: %s\n", strerror(errno));
         return 0;
     }
 
@@ -175,9 +175,14 @@ int Output_redirecting(int index, char **arglist) {
         fprintf(stderr, "fork failed on error: %s\n", strerror(errno));
         return 0;
     }
-//  based on fifo_writer.c file from recitation 4
     if (0 == cpid) {
-        int fd = open(arglist[index+1], O_CREAT | O_WRONLY, 00777);
+        default_child_handler();
+        //  based on fifo_writer.c file from recitation 4
+        int fd = open(arglist[index+1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+//      O_TRUNC - If the file already exists and is a regular file and the
+//              access mode allows writing (i.e., is O_RDWR or O_WRONLY)
+//              it will be truncated to length 0.
+//              https://man7.org/linux/man-pages/man2/open.2.html
         if (fd == -1) {
             fprintf(stderr, "open failed on error: %s\n", strerror(errno));
             exit(1);
@@ -192,17 +197,16 @@ int Output_redirecting(int index, char **arglist) {
             fprintf(stderr, "%s execvp failed on error: %s\n", arglist[0], strerror(errno));
             exit(1);
         }
+    }else{
+        //  based on wait_demo.c from recitation 3:
+        int exit_code2 = -1;
+        pid_t child2 = -1;
+        child2 = waitpid(cpid, &exit_code2, 0);
+        if ((-1 == child2) && (errno != ECHILD)  && (errno != EINTR )) {
+            fprintf(stderr, "wait failed on error: %s\n", strerror(errno));
+            return 0;
+        }
     }
-
-//  based on wait_demo.c from recitation 3:
-    int exit_code2 = -1;
-    pid_t child2 = -1;
-    child2 = waitpid(cpid, &exit_code2, 0);
-    if ((-1 == child2) && (errno != ECHILD)  && (errno != EINTR )) {
-        fprintf(stderr, "wait failed on error: %s\n", strerror(errno));
-        return 0;
-    }
-
     return 1;
 }
 
